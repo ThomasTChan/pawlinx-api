@@ -1,0 +1,8 @@
+{
+  "scripts":{
+    "debug": "export SLS_DEBUG=* && node --debug ./node_modules/.bin/serverless offline -s dev"
+  },
+  "dependencies": {
+    "dynamoose": "^0.8.5"
+  }
+}
