@@ -33,7 +33,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/*"
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/**"
 
 # you can overwrite defaults here
 #  stage: dev
@@ -75,7 +75,13 @@ functions:
       - http:
           path: v1/paws
           method: POST
-
+  
+  owners:
+    handler: controllers/owners.owners
+    events:
+      - http:
+          path: v1/owners
+          method: POST
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
 #    Check the event documentation for details
