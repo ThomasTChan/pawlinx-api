@@ -33,6 +33,7 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
+        - dynamodb:*
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/**"
 
 # you can overwrite defaults here
