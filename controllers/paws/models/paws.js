@@ -3,6 +3,7 @@
 
 var config = require('../../../config').Init.getConfig();
 var dynamooseSchema = config.DB.Schema;
+var db = config.DB;
 
 var pawSchema = new dynamooseSchema({
     dogId: {
@@ -61,7 +62,7 @@ var pawSchema = new dynamooseSchema({
     }
 });
 
-var paw = config.DB.model('paw', pawSchema);
+var paw = db.model('paw', pawSchema);
 
 module.exports = {
     schema: pawSchema,

@@ -2,5 +2,6 @@
 
 var db = require('dynamoose');
 
-module.exports.DEPLOYMENT_STAGE = 'dev';
+// Use environment variable STAGE set from serverless.yml
+module.exports.DEPLOYMENT_STAGE = process.env.STAGE || 'default';
 module.exports.DB = db;
