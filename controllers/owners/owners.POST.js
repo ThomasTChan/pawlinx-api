@@ -1,12 +1,16 @@
 'use strict';
 
 var dynamoose = require('dynamoose'),
-    owner = require('../models/owners').model;
+    owner = require('../../models/owners').model;
 
-var owners = function (event, context, callback) {
+var ownersPOST = function (event, context, callback) {
     var response = {};
+    console.log('hello!1')
     var request = new owner(JSON.parse(event.body));
+    console.log(event.body);
+    console.log('hello!2')
     request.save(function (err) {
+        console.log('hello!3')
         if (err) {
             console.log('Save Error: ', err);
             response = {
@@ -29,6 +33,4 @@ var owners = function (event, context, callback) {
     })    
 };
 
-module.exports = {
-    owners: owners
-}
+module.exports = ownersPOST;
