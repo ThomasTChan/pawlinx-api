@@ -71,7 +71,7 @@ provider:
 
 functions:
   paws:
-    handler: controllers/paws.paws
+    handler: controllers/paws/paws.api
     events:
       - http:
           path: v1/paws

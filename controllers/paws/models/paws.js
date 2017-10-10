@@ -1,14 +1,15 @@
 'use strict';
 
-var dynamoose = require('dynamoose'),
-    dynamooseSchema = dynamoose.Schema;
+
+var config = require('../../../config').Init.getConfig();
+var dynamooseSchema = config.DB.Schema;
 
 var pawSchema = new dynamooseSchema({
-    dogId:  {
+    dogId: {
         type: Number,
         validate: function (v) { return v > 0; },
         hashKey: true
-    },    
+    },
     name: {
         type: String,
         rangeKey: true,
@@ -36,7 +37,7 @@ var pawSchema = new dynamooseSchema({
         type: Number
     },
     dob: {
-        type: Date        
+        type: Date
     },
     colour: {
         lowercase: true,
@@ -51,18 +52,20 @@ var pawSchema = new dynamooseSchema({
     },
     hobbies: {
         type: [String]
-    },    
+    },
     tag: {
         type: [String]
     },
     temperature: {
         type: Number
-    }    
+    }
 });
 
-var paw = dynamoose.model('paw',pawSchema);
+var paw = config.DB.model('paw', pawSchema);
 
 module.exports = {
     schema: pawSchema,
     model: paw
 }
+
+

@@ -1,9 +1,8 @@
 'use strict';
 
-var dynamoose = require('dynamoose'),
-    paw = require('../models/paws').model;
+var paw = require('./models/paws').model;
 
-var paws = function (event, context, callback) {
+var pawsPOST = function (event, context, callback) {
     var response = {};
     var request = new paw(JSON.parse(event.body));
     request.save(function (err) {
@@ -26,9 +25,7 @@ var paws = function (event, context, callback) {
             };
         }
         callback(null, response);
-    })    
-};
-
-module.exports = {
-    paws: paws
+    })
 }
+
+module.exports = pawsPOST;
