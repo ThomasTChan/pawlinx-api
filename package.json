@@ -1,8 +1,17 @@
 {
-  "scripts":{
-    "debug": "export SLS_DEBUG=* && node --debug ./node_modules/.bin/serverless offline -s dev"
+  "scripts": {
+    "debug": "export SLS_DEBUG=* && node --debug ./node_modules/.bin/serverless offline -s dev",
+    "start-server-lambda:offline": "env-cmd ./config/security.env.local serverless offline start"
   },
   "dependencies": {
-    "dynamoose": "^0.8.5"
+    "apollo-server-lambda": "^1.1.6",
+    "apollo-server-module-graphiql": "^1.1.6",
+    "dynamoose": "^0.8.5",
+    "graphql": "^0.11.7",
+    "graphql-tools": "^2.4.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^7.0.0",
+    "serverless-offline": "^3.16.0"
   }
 }

@@ -37,6 +37,13 @@ provider:
         - dynamodb:*
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/**"
 
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    port: 4000
+
 # you can overwrite defaults here
 #  stage: dev
 #  region: us-east-1
@@ -87,6 +94,21 @@ functions:
       - http:
           path: v1/owners
           method: GET
+  graphql:
+    handler: graphql/api.graphqlHandler
+    events:
+    - http:
+        path: graphql
+        method: post
+        cors: true
+  graphiql:
+    handler: graphql/api.graphiqlHandler
+    events:
+    - http:
+        path: graphiql
+        method: get
+        cors: true
+
     
 #    The following are a few example events you can configure
 #    NOTE: Please make sure to change your handler code to work with those events
