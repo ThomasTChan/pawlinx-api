@@ -39,8 +39,16 @@ provider:
 
 plugins:
   - serverless-offline  
+  - serverless-dynamodb-local
 
 custom:
+  dynamodb:
+    start:
+      port: 8000
+      sharedDb: true
+      inMemory: true
+      migrate: true
+      seed: true
   serverless-offline:
     port: 4000
 

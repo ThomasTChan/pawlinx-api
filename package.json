@@ -12,6 +12,7 @@
   },
   "devDependencies": {
     "env-cmd": "^7.0.0",
+    "serverless-dynamodb-local": "^0.2.25",
     "serverless-offline": "^3.16.0"
   }
 }
