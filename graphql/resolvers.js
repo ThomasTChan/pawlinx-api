@@ -1,24 +1,24 @@
-const contributors = [
-  {
-    name: 'Austen',
-    location: 'San Francisco',
-  },
-  {
-    name: 'Philipp Muens',
-    location: 'San Francisco',
-  },
-  {
-    name: 'Nik Graf',
-    location: 'San Francisco',
-  },
-  {
-    name: 'Siddharth Gupta',
-    location: 'San Francisco',
-  },
-];
+// Initialize database configs
+require('../config').Init.initConfig();
+var Paws = require('../components/paws/models/paws').model,
+  Q = require("q");
+
+var pawQuery = function (root, args) {
+  var deferred = Q.defer(),
+    promise = deferred.promise;
+
+  Paws.query('dogId').eq(args.dogId).exec(function (err, paw) {
+    console.log('paw returned', paw[0])
+    if (err) {
+      deferred.reject(err);
+    }
+    deferred.resolve(paw[0]);
+  });
+  return promise;
+}
 
 module.exports.resolvers = {
   Query: {
-    getContributorFeed: () => contributors,
+    paw: pawQuery
   },
 };

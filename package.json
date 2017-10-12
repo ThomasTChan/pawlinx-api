@@ -8,7 +8,8 @@
     "apollo-server-module-graphiql": "^1.1.6",
     "dynamoose": "^0.8.5",
     "graphql": "^0.11.7",
-    "graphql-tools": "^2.4.0"
+    "graphql-tools": "^2.4.0",
+    "q": "^1.5.0"
   },
   "devDependencies": {
     "env-cmd": "^7.0.0",
