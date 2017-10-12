@@ -1,8 +1,8 @@
 'use strict';
 
 var makeExecutableSchema = require('graphql-tools').makeExecutableSchema;
-var schema = require('./schema').schema;
-var resolvers = require('./resolvers').resolvers;
+var schema = require('./paws/schema').schema;
+var resolvers = require('./paws/resolvers').resolvers;
 
 const server = require('apollo-server-lambda');
 

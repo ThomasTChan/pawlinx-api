@@ -1,6 +1,6 @@
 // Initialize database configs
-require('../config').Init.initConfig();
-var Paws = require('../components/paws/models/paws').model,
+require('../../config').Init.initConfig();
+var Paws = require('../../components/paws/models/paws').model,
   Q = require("q");
 
 var pawQuery = function (root, args) {
