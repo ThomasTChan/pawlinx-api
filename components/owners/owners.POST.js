@@ -1,7 +1,7 @@
 'use strict';
 
 var dynamoose = require('dynamoose'),
-    owner = require('../../models/owners').model;
+    owner = require('./models/owners').model;
 
 var ownersPOST = function (event, context, callback) {
     var response = {};
