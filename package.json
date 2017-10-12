@@ -1,6 +1,7 @@
 {
   "scripts": {
     "debug": "export SLS_DEBUG=* && node --debug ./node_modules/.bin/serverless offline -s dev",
+    "debug-server-lambda:offline": "env-cmd ./config/security.env.debug node-debug serverless offline start",
     "start-server-lambda:offline": "env-cmd ./config/security.env.local serverless offline start"
   },
   "dependencies": {
