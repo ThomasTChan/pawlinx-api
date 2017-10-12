@@ -3,9 +3,30 @@
     "configurations": [
         {
             "type": "node",
+            "request": "attach",
+            "name": "Attach to Node-Inspector",
+            "port": 5858
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Node-Inspector",
+            "program": "${workspaceFolder}/node_modules/env-cmd/bin/env-cmd",            
+            "args":[
+                "./config/security.env.debug", 
+                "node-debug",
+                "--cli",
+                "serverless",
+                "offline",
+                "start"
+            ]
+        },
+        {
+            "type": "node",
             "request": "launch",
             "name": "Launch Program in Debug Mode",
-            "program": "${workspaceFolder}/node_modules/env-cmd/bin/env-cmd",
+            "port": 5859,
+            "program": "${workspaceFolder}/node_modules/env-cmd/bin/env-cmd",            
             "args":[
                 "./config/security.env.debug", 
                 "serverless",
