@@ -6,4 +6,12 @@ var db = require('dynamoose');
 module.exports.DEPLOYMENT_STAGE = process.env.STAGE || 'default';
 module.exports.GRAPHQL_ENDPOINT = process.env.GRAPHQL_ENDPOINT || ''
 module.exports.DB = db;
-module.exports.DYNAMODB_ENV = 'local';
+
+// Config for local dynamodb instance
+module.exports.DYNAMODB_CONFIG_LOCAL = {
+    url: 'http://localhost',
+    port: 8000,
+    AWS: {        
+        region: 'ca-central-1'
+    }
+}
