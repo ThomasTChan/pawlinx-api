@@ -23,6 +23,7 @@ provider:
   stage: dev
   region: ca-central-1
   environment:
+    GRAPHQL_ENDPOINT: /${self:provider.stage}/graphql
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     STAGE: ${self:provider.stage}
   iamRoleStatements:
@@ -107,14 +108,14 @@ functions:
     events:
     - http:
         path: graphql
-        method: post
+        method: POST
         cors: true
   graphiql:
     handler: graphql/api.graphiqlHandler
     events:
     - http:
         path: graphiql
-        method: get
+        method: GET
         cors: true
 
     
