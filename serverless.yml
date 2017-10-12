@@ -88,14 +88,14 @@ custom:
 
 functions:
   paws:
-    handler: controllers/paws/paws.api
+    handler: components/paws/paws.api
     events:
       - http:
           path: v1/paws
           method: POST
   
   owners:
-    handler: controllers/owners/owners.api
+    handler: components/owners/owners.api
     events:
       - http:
           path: v1/owners
