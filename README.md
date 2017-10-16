@@ -51,3 +51,7 @@ Local DynamoDB will be running on port 8000.
 To query the DynamoDB:  http://localhost:8000/shell
 To run Graphql queries:  http://localhost:4000/graphiql
 
+***Deploying to AWS Lambda / API Gateway***
+
+``` sls deploy```
+
