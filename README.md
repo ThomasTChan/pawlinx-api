@@ -1,7 +1,7 @@
 # pawlinx-api
 pawlinx backend
 
-Installation Instructions:
+***Installation Instructions:***
 
 1.  Install serverless
 
@@ -23,7 +23,7 @@ Installation Instructions:
 
 ```sls dynamodb install```
 
-Running Locally using VS Code with Break Points:
+***Running Locally using VS Code with Break Points:***
 
 Open the Debugger tab in Visual Studio Code.  Select and run the following in the drop down:
 
@@ -37,11 +37,11 @@ the following in the drop down:
 
 A initial break point will be set.  Press play to continue executing the application.
 
-Running Locally in Command Line:
+***Running Locally in Command Line:***
 
 ```npm run start-server-lambda:offline```
 
-Running Locally in Command Line with Additional Debug Messages:
+***Running Locally in Command Line with Additional Debug Messages:***
 
 ```npm run debug-server-lambda:offline```
 
