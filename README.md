@@ -19,7 +19,7 @@ pawlinx backend
 
 ```npm install```
 
-5.  Install Serverless Offline Plugin
+5.  Install Serverless Local DynamoDB Plugin
 
 ```sls dynamodb install```
 
