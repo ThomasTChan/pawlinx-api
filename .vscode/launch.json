@@ -10,7 +10,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Node-Inspector",
+            "name": "Launch Program with Node-Inspector",
             "program": "${workspaceFolder}/node_modules/env-cmd/bin/env-cmd",            
             "args":[
                 "./config/security.env.debug", 
