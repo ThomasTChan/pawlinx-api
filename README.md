@@ -45,6 +45,8 @@ A initial break point will be set.  Press play to continue executing the applica
 
 ```npm run debug-server-lambda:offline```
 
+***DynamoDB and Graphql Endpoints***
+
 Serverless will simulate AWS Lambda locally and run the application on port 4000.
 Local DynamoDB will be running on port 8000.
 
