@@ -11,7 +11,7 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Node-Inspector",
-            "program": "${workspaceFolder}/node_modules/env-cmd/bin/env-cmd",            
+            "program": "${workspaceRoot}/node_modules/env-cmd/bin/env-cmd",            
             "args":[
                 "./config/security.env.debug", 
                 "node-debug",
@@ -26,7 +26,7 @@
             "request": "launch",
             "name": "Launch Program in Debug Mode",
             "port": 5859,
-            "program": "${workspaceFolder}/node_modules/env-cmd/bin/env-cmd",            
+            "program": "${workspaceRoot}/node_modules/env-cmd/bin/env-cmd",            
             "args":[
                 "./config/security.env.debug", 
                 "serverless",
