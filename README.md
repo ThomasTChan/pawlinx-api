@@ -15,11 +15,15 @@ pawlinx backend
 
 ```npm install -g yarn```
 
-4.  CD to directory and install npm dependencies
+4.  Install env-cmd
+
+```npm install -g env-cmd```
+
+5.  CD to directory and install npm dependencies
 
 ```npm install```
 
-5.  Install Serverless Local DynamoDB Plugin
+6.  Install Serverless Local DynamoDB Plugin
 
 ```sls dynamodb install```
 
