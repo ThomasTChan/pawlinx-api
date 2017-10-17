@@ -27,6 +27,10 @@ pawlinx backend
 
 ```sls dynamodb install```
 
+7.  Install Java if running local DynamoDB at:  
+
+```https://www.java.com/en/download/```
+
 ***Running Locally using VS Code with Break Points:***
 
 Open the Debugger tab in Visual Studio Code.  Select and run the following in the drop down:
