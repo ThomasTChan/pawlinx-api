@@ -12,9 +12,7 @@ var pawSchema = new dynamooseSchema({
         hashKey: true
     },
     name: {
-        type: String,
-        rangeKey: true,
-        index: true // name: nameLocalIndex, ProjectionType: ALL
+        type: String        
     },
     type: {
         type: String,

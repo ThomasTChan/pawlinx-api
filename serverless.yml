@@ -93,7 +93,11 @@ functions:
       - http:
           path: v1/paws
           method: POST
-  
+          authorizer: aws_iam
+      - http:
+          path: v1/paws
+          method: GET
+          authorizer: aws_iam
   owners:
     handler: components/owners/owners.api
     events:

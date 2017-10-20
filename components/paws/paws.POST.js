@@ -1,27 +1,29 @@
 'use strict';
 
-var paw = require('./models/paws').model;
+var paw = require('./models/paws').model,
+    AWS = require('aws-sdk');
 
 var pawsPOST = function (event, context, callback) {
     var response = {};
-    var request = new paw(JSON.parse(event.body));
+    var body = JSON.parse(event.body);
+    var request = new paw(body);
     request.save(function (err) {
         if (err) {
             console.log('Save Error: ', err);
             response = {
                 statusCode: 500,
-                body: JSON.stringify({
+                body: {
                     message: err,
-                    input: event.body
-                })
+                    input: body
+                }
             }
         } else {
             response = {
                 statusCode: 200,
-                body: JSON.stringify({
+                body: {
                     message: 'Saved Paw!',
-                    input: event.body,
-                }),
+                    input: body
+                }
             };
         }
         callback(null, response);
