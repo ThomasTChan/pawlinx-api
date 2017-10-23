@@ -18,8 +18,12 @@ module.exports.graphqlHandler = function graphqlHandler(event, context, callback
     output.headers['Access-Control-Allow-Origin'] = '*';
     callback(error, output);
   }
-
-  const handler = server.graphqlLambda({ schema: myGraphQLSchema });
+  const handler = server.graphqlLambda({
+    schema: myGraphQLSchema,
+    context: {
+      event
+    }
+  });
   return handler(event, context, callbackFilter);
 };
 

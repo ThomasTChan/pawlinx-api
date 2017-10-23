@@ -26,6 +26,7 @@ provider:
     GRAPHQL_ENDPOINT: /${self:provider.stage}/graphql
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     STAGE: ${self:provider.stage}
+    EXECUTION_ROLE: ${self:service}-${self:provider.stage}-${self:provider.region}-lambdaRole
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -37,6 +38,22 @@ provider:
         - dynamodb:DeleteItem
         - dynamodb:*
       Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/**"
+    - Effect: Allow
+      Action: 
+        - cognito-identity:Describe*,
+        - cognito-identity:Get*,
+        - cognito-identity:List*,
+        - cognito-idp:Describe*,
+        - cognito-idp:AdminGetUser,
+        - cognito-idp:List*,
+        - cognito-sync:Describe*,
+        - cognito-sync:Get*,
+        - cognito-sync:List*,
+        - iam:ListOpenIdConnectProviders,
+        - iam:ListRoles,
+        - sns:ListPlatformApplications
+      Resource: "arn:aws:cognito-sync:us-east-1:434433799977:identitypool/*:*/identity/*:*/dataset/account"
+      
 
 plugins:
   - serverless-offline  
@@ -115,7 +132,8 @@ functions:
         path: graphql
         method: POST
         cors: true
-        authorizer: aws_iam
+        authorizer: aws_iam        
+          
   graphiql:
     handler: graphql/api.graphiqlHandler
     events:
