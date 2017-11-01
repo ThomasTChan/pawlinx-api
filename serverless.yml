@@ -27,6 +27,7 @@ provider:
     DYNAMODB_TABLE: ${self:service}-${opt:stage, self:provider.stage}
     STAGE: ${self:provider.stage}
     EXECUTION_ROLE: ${self:service}-${self:provider.stage}-${self:provider.region}-lambdaRole
+    COGNITO_REGION: us-east-1
   iamRoleStatements:
     - Effect: Allow
       Action:
