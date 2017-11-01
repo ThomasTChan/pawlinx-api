@@ -1,6 +1,7 @@
 'use strict';
 
-var paw = require('./models/paws').model;
+var paw = require('./models/paws').model,
+    uuid = require('uuid/v1');
 
 var pawsPOST = function (event, context, callback) {
     var response = {},
@@ -8,11 +9,12 @@ var pawsPOST = function (event, context, callback) {
         request = new paw(body),
         AWS = context.AWS,
         cognitoIdentityId = event.requestContext.identity.cognitoIdentityId,
-        cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
+        cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;    
 
     context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
         request.accountId = data.accountId;
         request.beaconId = data.beaconId;
+        request.pawId = uuid();
         request.save(function (err) {
             if (err) {
                 response = {
@@ -28,7 +30,8 @@ var pawsPOST = function (event, context, callback) {
                     statusCode: 200,
                     body: JSON.stringify({
                         message: 'Saved Paw!',
-                        input: body
+                        input: body,
+                        result: request
                     })
                 };
                 console.log('Saved Paw!', response);
