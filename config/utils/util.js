@@ -30,7 +30,13 @@
                     if (err) {
                         console.log(err);
                         errors.push(err);
-                    }                    
+                        deferred.reject({
+                            msg: "One or more missing values",
+                            errors: errors
+                        })
+                    }           
+                    var identityObject = _.find(data.Records, function(o) { return o.Key === 'identity'; });                                        
+                    identityRecord = JSON.parse(identityObject.Value)                                                 
                     if(typeof identityRecord.accountId === 'undefined' || identityRecord.accountId.trim() === ''){
                         errors.push('accountId missing')
                     }
@@ -43,9 +49,7 @@
                             errors: errors
                         })
                     }
-                    console.log(data);
-                    var identityObject = _.find(data.Records, function(o) { return o.Key === 'identity'; });                                        
-                    identityRecord = JSON.parse(identityObject.Value)                                        
+                    console.log(data);                    
                     deferred.resolve(identityRecord);
                 })
             })
