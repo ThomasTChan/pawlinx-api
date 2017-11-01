@@ -9,54 +9,69 @@ var pawsPUT = function (event, context, callback) {
         AWS = context.AWS,
         cognitoIdentityId = event.requestContext.identity.cognitoIdentityId,
         cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
-        request.pawId = event.pathParameters.id;
+    
+    // Override any request changes to pawId
+    request.pawId = event.pathParameters.id;
 
+    // Check if id belongs to cognito identity in context
     paw.queryOne({
         pawId: {
-            eq:event.pathParameters.id
+            eq: event.pathParameters.id
+        },
+        accountId: {
+            eq: cognitoIdentityId
         }
-    },function(err,paw){
-        callback(null, paw);
+    }, function (err, paw) {
+        // if err then pawId does not belong to cognito identity in context
+        if (err) {
+            response = {
+                statusCode: 500,
+                body: JSON.stringify({
+                    message: err,
+                    input: body
+                })
+            }
+            callback(null, response);
+        } else {
+            context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
+                request.accountId = data.accountId;
+                request.beaconId = data.beaconId;
+                request.save(function (err) {
+                    if (err) {
+                        response = {
+                            statusCode: 500,
+                            body: JSON.stringify({
+                                message: err,
+                                input: body
+                            })
+                        }
+                        console.log('Save Error: ', response);
+                    } else {
+                        response = {
+                            statusCode: 200,
+                            body: JSON.stringify({
+                                message: 'Saved Paw!',
+                                input: body
+                            })
+                        };
+                        console.log('Saved Paw!', response);
+                    }
+                    callback(null, response);
+                })
+            }, function (error) {
+                console.log(error);
+                response = {
+                    statusCode: 500,
+                    body: JSON.stringify({
+                        message: 'Cognito Identity Error: ' + error.msg,
+                        errors: error.errors,
+                        input: body
+                    })
+                };
+                callback(null, response);
+            })
+        }
     })
-
-    // context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
-    //     request.accountId = data.accountId;
-    //     request.beaconId = data.beaconId;        
-    //     request.save(function (err) {
-    //         if (err) {
-    //             response = {
-    //                 statusCode: 500,
-    //                 body: JSON.stringify({
-    //                     message: err,
-    //                     input: body
-    //                 })
-    //             }
-    //             console.log('Save Error: ', response);
-    //         } else {
-    //             response = {
-    //                 statusCode: 200,
-    //                 body: JSON.stringify({
-    //                     message: 'Saved Paw!',
-    //                     input: body
-    //                 })
-    //             };
-    //             console.log('Saved Paw!', response);
-    //         }
-    //         callback(null, response);
-    //     })
-    // }, function (error) {
-    //     console.log(error);
-    //     response = {
-    //         statusCode: 500,
-    //         body: JSON.stringify({
-    //             message: 'Cognito Identity Error: ' + error.msg,
-    //             errors: error.errors,
-    //             input: body
-    //         })
-    //     };
-    //     callback(null, response);
-    // })
-
 }
 
 module.exports = pawsPUT;
