@@ -8,16 +8,17 @@ var db = config.DB;
 var pawSchema = new dynamooseSchema({
     accountId: {
         type: String,
-        required: true
+        required: true,
+        hashKey: true
     },
     beaconId: {
         type: String,
         required: true
     },
     pawId: {
-        type: Number,
-        validate: function (v) { return v > 0; },
-        hashKey: true
+        type: String,
+        required: true,
+        rangeKey: true
     },
     name: {
         type: String        

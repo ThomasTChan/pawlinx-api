@@ -5,30 +5,77 @@ var paw = require('./models/paws').model,
 
 var pawsGET = function (event, context, callback) {
     var response = {},
-        pawId = event.pathParameters.id;
+        cognitoIdentityId = event.requestContext.identity.cognitoIdentityId,
+        cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
 
-    paw.get({
-        pawId: pawId
-    },function(err,paws){
-        if(err){
-            response = {
-                statusCode: 500,
-                body: JSON.stringify({
-                    message: 'Error Getting Paw with pawId: ' + pawId,
-                    output: err
-                })
-            };
-            console.log('Error!',response)               
-        } else {
-            response = {
-                statusCode: 200,
-                body: JSON.stringify({
-                    message: 'Success GET on pawId: ' + pawId,
-                    output: paws
-                })
-            };         
-            console.log('Success!',response)   
-        }        
+    context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
+        // Get all paws for account
+        if (event.pathParameters === null) {
+            paw.query({
+                accountId: {
+                    eq: data.accountId
+                }
+            }, function (err, paws) {
+                if (err) {
+                    response = {
+                        statusCode: 500,
+                        body: JSON.stringify({
+                            message: 'Error Getting Paws for account: ' + data.accountId,
+                            output: err
+                        })
+                    };
+                    console.log('Error!', response)
+                } else {
+                    response = {
+                        statusCode: 200,
+                        body: JSON.stringify({
+                            message: 'Success GET Paws for account: ' + data.accountId,
+                            output: paws
+                        })
+                    };
+                    console.log('Success!', response)
+                }
+                callback(null, response);
+            })
+
+        } else { // Get single paw for account
+            var pawId = event.pathParameters.id;
+            paw.get({
+                accountId: data.accountId,
+                pawId: pawId
+            }, function (err, paws) {
+                if (err) {
+                    response = {
+                        statusCode: 500,
+                        body: JSON.stringify({
+                            message: 'Error Getting Paw with pawId: ' + pawId,
+                            output: err
+                        })
+                    };
+                    console.log('Error!', response)
+                } else {
+                    response = {
+                        statusCode: 200,
+                        body: JSON.stringify({
+                            message: 'Success GET on pawId: ' + pawId,
+                            output: paws
+                        })
+                    };
+                    console.log('Success!', response)
+                }
+                callback(null, response);
+            })
+        }
+    }, function (error) {
+        console.log(error);
+        response = {
+            statusCode: 500,
+            body: JSON.stringify({
+                message: 'Cognito Identity Error: ' + error.msg,
+                errors: error.errors,
+                input: body
+            })
+        };
         callback(null, response);
     })
 }
