@@ -26,13 +26,26 @@
                     IdentityPoolId: cognitoIdentityPoolId
                 }, function (err, data) {
                     console.log('Getting Cognito Sync Data!');
+                    var errors = [];
                     if (err) {
                         console.log(err);
-                        deferred.reject(err);
+                        errors.push(err);
+                    }                    
+                    if(typeof identityRecord.accountId === 'undefined' || identityRecord.accountId.trim() === ''){
+                        errors.push('accountId missing')
+                    }
+                    if(typeof identityRecord.beaconId === 'undefined' || identityRecord.beaconId.trim() === ''){
+                        errors.push('beaconId missing')
+                    }
+                    if(errors.length > 0){
+                        deferred.reject({
+                            msg: "One or more missing values",
+                            errors: errors
+                        })
                     }
                     console.log(data);
-                    var identityObject = _.find(data.Records, function(o) { return o.Key === 'identity'; });                    
-                    identityRecord = JSON.parse(identityObject.Value)
+                    var identityObject = _.find(data.Records, function(o) { return o.Key === 'identity'; });                                        
+                    identityRecord = JSON.parse(identityObject.Value)                                        
                     deferred.resolve(identityRecord);
                 })
             })

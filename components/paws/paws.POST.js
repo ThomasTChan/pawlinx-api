@@ -40,7 +40,8 @@ var pawsPOST = function (event, context, callback) {
         response = {
             statusCode: 500,
             body: JSON.stringify({
-                message: 'Cognito Identity Error:' + error,
+                message: 'Cognito Identity Error: ' + error.msg,
+                errors: error.errors,
                 input: body
             })
         };

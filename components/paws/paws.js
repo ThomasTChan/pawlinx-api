@@ -1,8 +1,9 @@
 'use strict'
 
-// Initialize Config
 var config = require('../../config'),
     AWS = require('aws-sdk');
+
+// Initialize Config
 config.Init.initConfig();
 
 module.exports.api = function (event, context, callback) {
