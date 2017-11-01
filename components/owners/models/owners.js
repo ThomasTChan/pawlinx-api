@@ -6,7 +6,8 @@ var dynamoose = require('dynamoose'),
 var ownerSchema = new dynamooseSchema({
     accountId: {
         type: String,
-        required: true
+        required: true,
+        hashKey: true
     },
     beaconId: {
         type: String,
@@ -15,7 +16,7 @@ var ownerSchema = new dynamooseSchema({
     ownerId: {        
         type: String,
         required: true,
-        hashKey: true
+        rangeKey: true
     },
     name: {
         type: String,
