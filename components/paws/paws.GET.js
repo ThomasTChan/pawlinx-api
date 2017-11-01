@@ -5,16 +5,16 @@ var paw = require('./models/paws').model,
 
 var pawsGET = function (event, context, callback) {
     var response = {},
-        dogId = event.queryStringParameters.dogId;
+        pawId = event.pathParameters.id;
 
     paw.get({
-        dogId: dogId
-    },function(err,dogs){
+        pawId: pawId
+    },function(err,paws){
         if(err){
             response = {
                 statusCode: 500,
                 body: JSON.stringify({
-                    message: 'Error Getting Paw with dogId: ' + dogId,
+                    message: 'Error Getting Paw with pawId: ' + pawId,
                     output: err
                 })
             };
@@ -23,8 +23,8 @@ var pawsGET = function (event, context, callback) {
             response = {
                 statusCode: 200,
                 body: JSON.stringify({
-                    message: 'Success GET on dogId: ' + dogId,
-                    output: dogs
+                    message: 'Success GET on pawId: ' + pawId,
+                    output: paws
                 })
             };         
             console.log('Success!',response)   
