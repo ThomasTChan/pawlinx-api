@@ -14,7 +14,7 @@ var pawSchema = new dynamooseSchema({
         type: String,
         required: true
     },
-    dogId: {
+    pawId: {
         type: Number,
         validate: function (v) { return v > 0; },
         hashKey: true
@@ -28,7 +28,7 @@ var pawSchema = new dynamooseSchema({
         required: true,
         index: {
             global: true,
-            rangeKey: 'dogId',
+            rangeKey: 'pawId',
             name: 'TypeIndex',
             project: true, // ProjectionType: ALL
             throughput: 5 // read and write are both 5
