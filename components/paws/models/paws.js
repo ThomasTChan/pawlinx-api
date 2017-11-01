@@ -6,6 +6,14 @@ var dynamooseSchema = config.DB.Schema;
 var db = config.DB;
 
 var pawSchema = new dynamooseSchema({
+    accountId: {
+        type: String,
+        required: true
+    },
+    beaconId: {
+        type: String,
+        required: true
+    },
     dogId: {
         type: Number,
         validate: function (v) { return v > 0; },
