@@ -4,8 +4,17 @@ var dynamoose = require('dynamoose'),
     dynamooseSchema = dynamoose.Schema;
 
 var ownerSchema = new dynamooseSchema({
-    ownerId: {
-        type: Number,
+    accountId: {
+        type: String,
+        required: true
+    },
+    beaconId: {
+        type: String,
+        required: true
+    },
+    ownerId: {        
+        type: String,
+        required: true,
         hashKey: true
     },
     name: {
