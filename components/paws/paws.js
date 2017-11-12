@@ -1,6 +1,7 @@
 'use strict'
 
 var config = require('../../config'),
+    validator = require('validator'),
     AWS = require('aws-sdk');
 
 // Initialize Config
@@ -9,6 +10,7 @@ config.Init.initConfig();
 module.exports.api = function (event, context, callback) {
     var response = {};
     var method = event.httpMethod;
+    event.body = validator.blacklist(event.body,';')
     context.config = config.Init.getConfig();
     context.util = config.Util;
     context.AWS = AWS;
