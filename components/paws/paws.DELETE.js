@@ -19,8 +19,9 @@ var pawsPUT = function (event, context, callback) {
                     response = {
                         statusCode: 500,
                         body: JSON.stringify({
-                            message: err,
-                            input: event.pathParameters.id
+                            message: 'DELETE: ' + event.pathParameters.id + ' failed!',
+                            input: event.pathParameters.id,
+                            output: err
                         })
                     }
                     callback(null, response);
@@ -30,6 +31,7 @@ var pawsPUT = function (event, context, callback) {
                         statusCode: 404,
                         body: JSON.stringify({
                             message: 'DELETE: ' + event.pathParameters.id + ' failed as resource does not exist!',
+                            input: event.pathParameters.id,
                             output: event.pathParameters.id + ' does not exist for logged in account.'
                         })
                     }
@@ -40,8 +42,9 @@ var pawsPUT = function (event, context, callback) {
                             response = {
                                 statusCode: 500,
                                 body: JSON.stringify({
-                                    message: del_err,
-                                    input: event.pathParameters.id
+                                    message: 'DELETE: ' + event.pathParameters.id + ' failed!',
+                                    input: event.pathParameters.id,
+                                    output: del_err
                                 })
                             }
                             callback(null, response);
@@ -51,6 +54,7 @@ var pawsPUT = function (event, context, callback) {
                                 statusCode: 200,
                                 body: JSON.stringify({
                                     message: 'DELETE: ' + event.pathParameters.id + ' Successful!',
+                                    input: event.pathParameters.id,
                                     output: found_paw
                                 })
                             }
