@@ -25,7 +25,7 @@ var pawQuery = function (root, args, context) {
     })
   })
 
-  Paws.query('dogId').eq(args.dogId).exec(function (err, paw) {
+  Paws.query('pawId').eq(args.pawId).exec(function (err, paw) {
     console.log('paw returned', paw[0])
     if (err) {
       deferred.reject(err);

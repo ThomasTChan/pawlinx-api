@@ -1,6 +1,6 @@
 const schema = `
 type Paw {   
-  dogId: Int
+  pawId: Int
   type: String
   name: String
   picture: String
@@ -44,7 +44,7 @@ type Contact {
 
 #returns list of contributors
 type Query {
-  paw(dogId: Int) : Paw
+  paw(pawId: Int) : Paw
 }`;
 
 module.exports.schema = schema;
