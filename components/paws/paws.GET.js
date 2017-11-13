@@ -48,16 +48,25 @@ var pawsGET = function (event, context, callback) {
                     response = {
                         statusCode: 500,
                         body: JSON.stringify({
-                            message: 'Error Getting Paw with pawId: ' + pawId,
+                            message: 'GET: ' + pawId + ' failed!',
                             output: err
                         })
                     };
                     console.log('Error!', response)
+                } else if (typeof paws === 'undefined') {
+                    // Resource does not exist!
+                    response = {
+                        statusCode: 404,
+                        body: JSON.stringify({
+                            message: 'GET: ' + pawId + ' failed as resource does not exist!',
+                            output: pawId + ' does not exist for logged in account.'
+                        })
+                    }
                 } else {
                     response = {
                         statusCode: 200,
                         body: JSON.stringify({
-                            message: 'Success GET on pawId: ' + pawId,
+                            message: 'GET: ' + pawId + ' Successful!',
                             output: paws
                         })
                     };
