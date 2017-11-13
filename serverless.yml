@@ -124,6 +124,10 @@ functions:
           path: v1/paws/{id}
           method: GET
           authorizer: aws_iam
+      - http:
+          path: v1/paws/{id}
+          method: DELETE
+          authorizer: aws_iam
   owners:
     handler: components/owners/owners.api
     events:
