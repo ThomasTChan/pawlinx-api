@@ -20,16 +20,18 @@ var ownersPOST = function (event, context, callback) {
                 response = {
                     statusCode: 500,
                     body: JSON.stringify({
-                        message: err,
-                        input: event.body
+                        message: 'POST failed!',
+                        input: event.body,
+                        output: err
                     })
                 }
             } else {
                 response = {
                     statusCode: 200,
                     body: JSON.stringify({
-                        message: 'Saved Owner!',
+                        message: 'POST successful!',
                         input: event.body,
+                        output: request
                     }),
                 };
             }

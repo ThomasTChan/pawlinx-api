@@ -18,7 +18,7 @@ var ownersGET = function (event, context, callback) {
                 response = {
                     statusCode: 500,
                     body: JSON.stringify({
-                        message: 'Error Getting Paws for account: ' + data.accountId,
+                        message: 'GET: ' + data.accountId + ' failed!',
                         output: err
                     })
                 };
@@ -27,7 +27,7 @@ var ownersGET = function (event, context, callback) {
                 response = {
                     statusCode: 200,
                     body: JSON.stringify({
-                        message: 'Success GET Paws for account: ' + data.accountId,
+                        message: 'GET: ' + data.accountId + ' successful!',
                         output: owners
                     })
                 };
