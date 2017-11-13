@@ -23,6 +23,15 @@ var ownersGET = function (event, context, callback) {
                     })
                 };
                 console.log('Error!', response)
+            } else if (typeof owners === 'undefined') {
+                 // Resource does not exist!
+                 response = {
+                    statusCode: 404,
+                    body: JSON.stringify({
+                        message: 'GET: ' + data.accountId + ' failed as resource does not exist!',
+                        output: 'User is not logged in'
+                    })
+                }
             } else {
                 response = {
                     statusCode: 200,
