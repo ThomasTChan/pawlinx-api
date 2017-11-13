@@ -66,7 +66,7 @@ var pawsGET = function (event, context, callback) {
                     response = {
                         statusCode: 200,
                         body: JSON.stringify({
-                            message: 'GET: ' + pawId + ' Successful!',
+                            message: 'GET: ' + pawId + ' successful!',
                             output: paws
                         })
                     };

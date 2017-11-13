@@ -20,8 +20,9 @@ var pawsPOST = function (event, context, callback) {
                 response = {
                     statusCode: 500,
                     body: JSON.stringify({
-                        message: err,
-                        input: body
+                        message: 'POST failed!',
+                        input: body,
+                        output: err
                     })
                 }
                 console.log('Save Error: ', response);
@@ -29,9 +30,9 @@ var pawsPOST = function (event, context, callback) {
                 response = {
                     statusCode: 200,
                     body: JSON.stringify({
-                        message: 'Saved Paw!',
+                        message: 'POST successful!',
                         input: body,
-                        result: request
+                        output: request
                     })
                 };
                 console.log('Saved Paw!', response);

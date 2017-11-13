@@ -53,7 +53,7 @@ var pawsPUT = function (event, context, callback) {
                             response = {
                                 statusCode: 200,
                                 body: JSON.stringify({
-                                    message: 'DELETE: ' + event.pathParameters.id + ' Successful!',
+                                    message: 'DELETE: ' + event.pathParameters.id + ' successful!',
                                     input: event.pathParameters.id,
                                     output: found_paw
                                 })
