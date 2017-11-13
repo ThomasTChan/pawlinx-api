@@ -3,6 +3,10 @@
 var makeExecutableSchema = require('graphql-tools').makeExecutableSchema;
 var schema = require('./paws/schema').schema;
 var resolvers = require('./paws/resolvers').resolvers;
+var config = require('../config');
+
+// Initialize Config
+config.Init.initConfig();
 
 const server = require('apollo-server-lambda');
 
@@ -21,7 +25,8 @@ module.exports.graphqlHandler = function graphqlHandler(event, context, callback
   const handler = server.graphqlLambda({
     schema: myGraphQLSchema,
     context: {
-      event
+      event,
+      util: config.Util
     }
   });
   return handler(event, context, callbackFilter);
