@@ -6,7 +6,6 @@ var Paws = require('../../components/paws/models/paws').model,
 var pawQuery = function (root, args, context) {
   var deferred = Q.defer(),
     promise = deferred.promise,
-    AWS = require('aws-sdk'),
     cognitoIdentityId = context.event.requestContext.identity.cognitoIdentityId,
     cognitoIdentityPoolId = context.event.requestContext.identity.cognitoIdentityPoolId;
 
