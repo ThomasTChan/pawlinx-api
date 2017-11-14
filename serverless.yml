@@ -150,6 +150,17 @@ functions:
           path: v1/owners
           method: GET
           authorizer: aws_iam
+  owners-metadata:
+    handler: components/owners/metadata/metadata.api
+    events:
+      - http:
+          path: v1/owners/{id}/metadata
+          method: GET
+          authorizer: aws_iam
+      - http:
+          path: v1/owners/metadata
+          method: POST
+          authorizer: aws_iam
   graphql:
     handler: graphql/api.graphqlHandler
     events:
