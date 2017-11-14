@@ -149,6 +149,7 @@ functions:
       - http:
           path: v1/owners
           method: GET
+          authorizer: aws_iam
   graphql:
     handler: graphql/api.graphqlHandler
     events:
