@@ -6,7 +6,8 @@ var dynamoose = require('dynamoose'),
 
 var ownersPOST = function (event, context, callback) {
     var response = {},
-        request = new owner(JSON.parse(event.body)),
+        body = JSON.parse(event.body),
+        request = new owner(body),
         AWS = context.AWS,
         cognitoIdentityId = event.requestContext.identity.cognitoIdentityId,
         cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
@@ -22,7 +23,7 @@ var ownersPOST = function (event, context, callback) {
                     statusCode: 500,
                     body: JSON.stringify({
                         message: 'POST failed!',
-                        input: event.body,
+                        input: body,
                         output: err
                     })
                 }
@@ -31,7 +32,7 @@ var ownersPOST = function (event, context, callback) {
                     statusCode: 200,
                     body: JSON.stringify({
                         message: 'POST successful!',
-                        input: event.body,
+                        input: body,
                         output: request
                     }),
                 };

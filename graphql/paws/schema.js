@@ -4,7 +4,7 @@ type Paw {
   type: String
   name: String
   picture: String
-  owner: String
+  owner: Owner
   weight: Int
   dob: String
   colour: [String]
@@ -42,7 +42,7 @@ type Contact {
   email: String
 }
 
-#returns list of contributors
+#returns a single Paw given a pawId
 type Query {
   paw(pawId: String) : Paw
 }`;
