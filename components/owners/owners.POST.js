@@ -64,7 +64,7 @@ var ownersPOST = function (event, context, callback) {
             })
         }, function (getOwnerError) {
             response = {
-                statusCode: 200,
+                statusCode: 500,
                 body: JSON.stringify({
                     message: 'POST failed!',
                     input: body,
