@@ -19,8 +19,9 @@ module.exports.api = function (event, context, callback) {
         response = {
             statusCode: 500,
             body: JSON.stringify({
-                message: 'Method Not Implemented!',
-                input: event.body
+                message: 'Error calling function for '+method+' '+event.resource,
+                input: JSON.parse(event.body),
+                output: e
             })
         }
         callback(null, response);
