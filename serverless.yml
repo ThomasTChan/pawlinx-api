@@ -128,6 +128,17 @@ functions:
           path: v1/paws/{id}
           method: DELETE
           authorizer: aws_iam
+  paws.metadata:
+    handler: components/paws/metadata/metadata.api
+    events:
+      - http:
+          path: v1/paws/{id}/metadata
+          method: GET
+          authorizer: aws_iam
+      - http:
+          path: v1/paws/metadata
+          method: POST
+          authorizer: aws_iam
   owners:
     handler: components/owners/owners.api
     events:
