@@ -38,7 +38,7 @@ var pawSchema = new dynamooseSchema({
     picture: {
         type: String
     },
-    owner: {
+    ownerId: {
         type: String
     },
     weight: {
