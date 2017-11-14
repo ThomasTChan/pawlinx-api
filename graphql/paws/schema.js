@@ -16,6 +16,7 @@ type Paw {
 }
 
 type Owner {
+  ownerId: String
   name: String
   dob: String
   sex: String
