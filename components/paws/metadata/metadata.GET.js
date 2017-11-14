@@ -3,7 +3,7 @@
 var paw = require('../models/paws').model,
     AWS = require('aws-sdk');
 
-var pawsGET = function (event, context, callback) {
+var pawsMetadataGET = function (event, context, callback) {
     var response = {};
 
     var pawId = event.pathParameters.id;
@@ -47,4 +47,4 @@ var pawsGET = function (event, context, callback) {
         })
 }
 
-module.exports = pawsGET;
+module.exports = pawsMetadataGET;
