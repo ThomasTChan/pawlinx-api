@@ -128,7 +128,7 @@ functions:
           path: v1/paws/{id}
           method: DELETE
           authorizer: aws_iam
-  paws.metadata:
+  paws-metadata:
     handler: components/paws/metadata/metadata.api
     events:
       - http:
