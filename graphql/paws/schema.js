@@ -45,6 +45,7 @@ type Contact {
 #returns a single Paw given a pawId
 type Query {
   paw(pawId: String) : Paw
+  owner(ownerId: String) : Owner
 }`;
 
 module.exports.schema = schema;
