@@ -4,7 +4,8 @@ var paw = require('../models/paws').model,
     AWS = require('aws-sdk');
 
 var pawsMetadataPOST = function (event, context, callback) {
-    var response = {};    
+    var response = {},
+        body = JSON.parse(event.body);
 
     var pawIds = JSON.parse(event.body).pawIds;
     paw.scan('pawId').in(pawIds)
@@ -16,7 +17,7 @@ var pawsMetadataPOST = function (event, context, callback) {
                     statusCode: 500,
                     body: JSON.stringify({
                         message: 'POST failed!',
-                        input: event.body,
+                        input: body,
                         output: err
                     })
                 }
@@ -27,7 +28,7 @@ var pawsMetadataPOST = function (event, context, callback) {
                     statusCode: 404,
                     body: JSON.stringify({
                         message: 'POST failed as resource does not exist!',
-                        input: event.body,
+                        input: body,
                         output: 'No matches found!'
                     })
                 }
@@ -38,7 +39,7 @@ var pawsMetadataPOST = function (event, context, callback) {
                     statusCode: 200,
                     body: JSON.stringify({
                         message: 'POST successful!',
-                        input: event.body,
+                        input: body,
                         output: paws
                     })
                 }

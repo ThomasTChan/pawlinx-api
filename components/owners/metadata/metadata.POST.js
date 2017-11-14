@@ -4,7 +4,8 @@ var owner = require('../models/owners').model,
     AWS = require('aws-sdk');
 
 var ownersMetadataPOST = function (event, context, callback) {
-    var response = {};    
+    var response = {},
+        body = JSON.parse(event.body);
 
     var ownerIds = JSON.parse(event.body).ownerIds;
     owner.scan('ownerId').in(ownerIds)
@@ -16,7 +17,7 @@ var ownersMetadataPOST = function (event, context, callback) {
                     statusCode: 500,
                     body: JSON.stringify({
                         message: 'POST failed!',
-                        input: JSON.parse(event.body),
+                        input: body,
                         output: err
                     })
                 }
@@ -27,7 +28,7 @@ var ownersMetadataPOST = function (event, context, callback) {
                     statusCode: 404,
                     body: JSON.stringify({
                         message: 'POST failed as resource does not exist!',
-                        input: JSON.parse(event.body),
+                        input: body,
                         output: 'No matches found!'
                     })
                 }
@@ -38,7 +39,7 @@ var ownersMetadataPOST = function (event, context, callback) {
                     statusCode: 200,
                     body: JSON.stringify({
                         message: 'POST successful!',
-                        input: JSON.parse(event.body),
+                        input: body,
                         output: paws
                     })
                 }
