@@ -5,12 +5,13 @@ var ownerQuery = function (root, args, context) {
   var deferred = Q.defer(),
     promise = deferred.promise,
     cognitoIdentityId = context.event.requestContext.identity.cognitoIdentityId,
-    cognitoIdentityPoolId = context.event.requestContext.identity.cognitoIdentityPoolId;
+    cognitoIdentityPoolId = context.event.requestContext.identity.cognitoIdentityPoolId,
+    ownerId = args.ownerId || root.ownerId;
 
   context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
     Owners.get({
       accountId: data.accountId,
-      ownerId: args.ownerId
+      ownerId: ownerId
     }, function (err, owner) {
       if (err) {
         deferred.reject(err);

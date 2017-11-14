@@ -5,12 +5,13 @@ var pawQuery = function (root, args, context) {
   var deferred = Q.defer(),
     promise = deferred.promise,
     cognitoIdentityId = context.event.requestContext.identity.cognitoIdentityId,
-    cognitoIdentityPoolId = context.event.requestContext.identity.cognitoIdentityPoolId;
+    cognitoIdentityPoolId = context.event.requestContext.identity.cognitoIdentityPoolId,
+    pawId = args.pawId || root.pawId;
 
   context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
     Paws.get({
       accountId: data.accountId,
-      pawId: args.pawId
+      pawId: pawId
     }, function (err, paw) {
       if (err) {
         deferred.reject(err);

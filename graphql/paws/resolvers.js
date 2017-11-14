@@ -10,6 +10,9 @@ module.exports.resolvers = {
     paw: pawQuery,
     owner: ownerQuery
   },
+  Paw: {
+    owner: ownerQuery
+  },
   Owner: {
     contact: contactQuery
   }
