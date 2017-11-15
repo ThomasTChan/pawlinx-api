@@ -32,6 +32,7 @@ type Location {
   city: String
   province: String
   postalCode: String
+  country: String
 }
 
 type Tag {
