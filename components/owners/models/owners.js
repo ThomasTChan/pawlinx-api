@@ -30,7 +30,7 @@ var ownerSchema = new dynamooseSchema({
     sex: String,
     picture: String,
     // Reference
-    location: String,
+    location: Object,
     // Reference
     contact: {
         tel: String,
