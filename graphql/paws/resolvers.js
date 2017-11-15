@@ -1,19 +1,20 @@
 // Initialize database configs
 require('../../config').Init.initConfig();
-var pawQuery = require('./paw.query.resolver').pawQuery,
-  ownerQuery = require('./owner.query.resolver').ownerQuery,
-  contactQuery = require('./contact.query.resolver').contactQuery,
+var pawResolver = require('./paw.query.resolver'),  
+  ownerResolver = require('./owner.query.resolver'),
+  contactResolver = require('./contact.query.resolver'),
   Q = require("q");
 
 module.exports.resolvers = {
   Query: {
-    paw: pawQuery,
-    owner: ownerQuery
+    paw: pawResolver.pawQuery,
+    owner: ownerResolver.ownerQuery
   },
   Paw: {
-    owner: ownerQuery
+    owner: ownerResolver.ownerQuery
   },
   Owner: {
-    contact: contactQuery
+    paws: pawResolver.pawQueryByOwnerId,
+    contact: contactResolver.contactQuery
   }
 };
