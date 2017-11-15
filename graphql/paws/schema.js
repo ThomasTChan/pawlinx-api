@@ -23,6 +23,7 @@ type Owner {
   picture: String
   location: Location
   contact: Contact
+  paws: [Paw]
 }
 
 type Location {

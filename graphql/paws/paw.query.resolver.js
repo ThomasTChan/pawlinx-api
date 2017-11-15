@@ -27,5 +27,35 @@ var pawQuery = function (root, args, context) {
   return promise;
 }
 
+var pawQueryByOwnerId = function (root, args, context) {
+  var deferred = Q.defer(),
+    promise = deferred.promise,
+    cognitoIdentityId = context.event.requestContext.identity.cognitoIdentityId,
+    cognitoIdentityPoolId = context.event.requestContext.identity.cognitoIdentityPoolId;
 
-module.exports.pawQuery = pawQuery;
+  context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
+
+    Paws.scan('accountId').eq(data.accountId)
+      .where('ownerId')
+      .eq(root.ownerId)
+      .exec(function (err, found_paws) {
+        // if err then pawId does not belong to cognito identity in context
+        if (err) {
+          deferred.reject(err);
+        } else if (found_paws.length === 0) {
+          // Resrouce does not exist!
+          deferred.reject('Paws with ownerid: ' + root.ownerId + ' not found!');
+        } else {
+          deferred.resolve(found_paws);
+        }
+      })
+  }, function (error) {
+    deferred.reject('Cognito Identity Error: ' + error);
+  })
+  return promise;
+}
+
+module.exports = {
+  pawQuery: pawQuery,
+  pawQueryByOwnerId: pawQueryByOwnerId
+}
