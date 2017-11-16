@@ -132,11 +132,19 @@ functions:
     handler: components/paws/metadata/metadata.api
     events:
       - http:
-          path: v1/paws/{id}/metadata
+          path: v1/paws/{pawId}/metadata
+          method: GET
+          authorizer: aws_iam      
+      - http:
+          path: v1/paws/metadata
+          method: POST
+          authorizer: aws_iam
+      - http:
+          path: v1/paws/metadata/beacon/{beaconId}
           method: GET
           authorizer: aws_iam
       - http:
-          path: v1/paws/metadata
+          path: v1/paws/metadata/beacon
           method: POST
           authorizer: aws_iam
   owners:

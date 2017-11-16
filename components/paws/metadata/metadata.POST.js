@@ -4,11 +4,27 @@ var AWS = require('aws-sdk');
 
 var pawsMetadataPOST = function (event, context, callback) {
     var response = {},
+        attribute = '',
+        filterValue = '',
         paw = context.paw.model,
         body = JSON.parse(event.body);
 
-    var pawIds = JSON.parse(event.body).pawIds;
-    paw.scan('pawId').in(pawIds)
+    var pawIds = JSON.parse(event.body).pawIds,
+        beaconIds = JSON.parse(event.body).beaconIds;
+    
+    // if pawId exists, then get metadata by single pawId
+    if(pawIds){
+        attribute = 'pawId';
+        filterValue = pawIds;
+    }
+
+    // if beaconId exists, then get metadata by single beaconId
+    if(beaconIds){
+        attribute = 'beaconId';
+        filterValue = beaconIds;
+    }
+
+    paw.scan(attribute).in(filterValue)
         .attributes(['name', 'type', 'picture', 'owner'])
         .exec(function (err, paws) {
             // if err then pawId does not belong to cognito identity in context
