@@ -2,40 +2,18 @@
 
 var dynamoose = require('dynamoose'),
     uuid = require('uuid'),
-    owner = require('./models/owners').model,
     Q = require('q');
-
-function getOwnerId(accountId) {
-    var deferred = Q.defer(),
-        promise = deferred.promise;
-
-    owner.query('accountId').eq(accountId)
-        .attributes(['ownerId'])
-        .exec(function (err, owners) {
-            if (err) {
-                deferred.reject(err);
-            } else if (owners.length === 0) {
-                // Resource does not exist, create new UUID
-                deferred.resolve(uuid());
-            } else {
-                // Resource exists, return UUID
-                deferred.resolve(owners[0].ownerId);
-            }
-        })
-
-    return promise;
-}
 
 var ownersPOST = function (event, context, callback) {
     var response = {},
         body = JSON.parse(event.body),
-        request = new owner(body),
+        request = new context.owner.model(body),
         AWS = context.AWS,
         cognitoIdentityId = event.requestContext.identity.cognitoIdentityId,
         cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
 
     context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
-        getOwnerId(data.accountId).then(function (owner_uuid) {
+        context.ownerUtils.getOwnerId(data.accountId).then(function (owner_uuid) {
             request.accountId = data.accountId;
             request.beaconId = data.beaconId;
             request.ownerId = owner_uuid;
