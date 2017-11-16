@@ -55,7 +55,51 @@ var pawQueryByOwnerId = function (root, args, context) {
   return promise;
 }
 
+var pawMetadataQueryByPawIds = function (root, args, context) {
+  var deferred = Q.defer(),
+  promise = deferred.promise;
+
+  Paws.scan('pawId').in(args.pawIds)
+  .attributes(['pawId','beaconId','name','type','picture'])
+  .exec(function (err, found_paws) {
+    // if err then pawId does not belong to cognito identity in context
+    if (err) {
+      deferred.reject(err);
+    } else if (found_paws.length === 0) {
+      // Resource does not exist!
+      deferred.reject('Paws not found: ' + args.pawIds);
+    } else {
+      deferred.resolve(found_paws);
+    }
+  })
+
+  return promise;
+}
+
+var pawMetadataQueryByBeaconIds = function (root, args, context) {
+  var deferred = Q.defer(),
+  promise = deferred.promise;
+
+  Paws.scan('beaconId').in(args.beaconIds)
+  .attributes(['pawId','beaconId','name','type','picture'])
+  .exec(function (err, found_paws) {
+    // if err then pawId does not belong to cognito identity in context
+    if (err) {
+      deferred.reject(err);
+    } else if (found_paws.length === 0) {
+      // Resource does not exist!
+      deferred.reject('Paws not found: ' + args.beaconIds);
+    } else {
+      deferred.resolve(found_paws);
+    }
+  })
+
+  return promise;
+}
+
 module.exports = {
   pawQuery: pawQuery,
-  pawQueryByOwnerId: pawQueryByOwnerId
+  pawQueryByOwnerId: pawQueryByOwnerId,
+  pawMetadataQueryByPawIds: pawMetadataQueryByPawIds,
+  pawMetadataQueryByBeaconIds: pawMetadataQueryByBeaconIds
 }

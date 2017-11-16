@@ -8,11 +8,15 @@ var pawResolver = require('./paw.query.resolver'),
 module.exports.resolvers = {
   Query: {
     paw: pawResolver.pawQuery,
+    pawMetadata: pawResolver.pawMetadataQueryByBeaconIds,
     owner: ownerResolver.ownerQuery
   },
   Paw: {
     owner: ownerResolver.ownerQuery
   },
+  PawMetadata: {
+    owner: ownerResolver.ownerMetadataQueryByBeaconId
+  },  
   Owner: {
     paws: pawResolver.pawQueryByOwnerId,
     contact: contactResolver.contactQuery

@@ -15,6 +15,14 @@ type Paw {
   temperature: Float
 }
 
+type PawMetadata {
+  beaconId: String
+  name: String
+  type: String
+  picture: String
+  owner: OwnerMetadata
+}
+
 type Owner {
   ownerId: String
   name: String
@@ -24,6 +32,11 @@ type Owner {
   location: Location
   contact: Contact
   paws: [Paw]
+}
+
+type OwnerMetadata {
+  name: String,
+  picture: String
 }
 
 type Location {
@@ -45,10 +58,13 @@ type Contact {
   email: String
 }
 
-#returns a single Paw given a pawId
 type Query {
+  #returns a single Paw given a pawId
   paw(pawId: String) : Paw
+  #returns a single Owner given a ownerId
   owner(ownerId: String) : Owner
+  #returns metadata for given beaconIds in list  
+  pawMetadata(beaconIds: [String!]) : [PawMetadata]
 }`;
 
 module.exports.schema = schema;
