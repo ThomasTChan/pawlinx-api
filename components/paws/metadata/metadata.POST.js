@@ -1,10 +1,10 @@
 'use strict';
 
-var paw = require('../models/paws').model,
-    AWS = require('aws-sdk');
+var AWS = require('aws-sdk');
 
 var pawsMetadataPOST = function (event, context, callback) {
     var response = {},
+        paw = context.paw.model,
         body = JSON.parse(event.body);
 
     var pawIds = JSON.parse(event.body).pawIds;

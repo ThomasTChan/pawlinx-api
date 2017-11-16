@@ -1,10 +1,8 @@
 'use strict';
 
-var paw = require('./models/paws').model,
-    AWS = require('aws-sdk');
-
 var pawsGET = function (event, context, callback) {
     var response = {},
+        paw = context.paw.model,
         cognitoIdentityId = event.requestContext.identity.cognitoIdentityId,
         cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
 

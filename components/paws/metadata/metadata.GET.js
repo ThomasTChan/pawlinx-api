@@ -1,10 +1,10 @@
 'use strict';
 
-var paw = require('../models/paws').model,
-    AWS = require('aws-sdk');
+var AWS = require('aws-sdk');
 
 var pawsMetadataGET = function (event, context, callback) {
-    var response = {};
+    var response = {},
+        paw = context.paw.model;
 
     var pawId = event.pathParameters.id;
     paw.scan('pawId').eq(pawId)

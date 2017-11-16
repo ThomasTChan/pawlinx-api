@@ -1,10 +1,9 @@
 'use strict';
 
-var paw = require('./models/paws').model;
-
-var pawsPUT = function (event, context, callback) {
+var pawsDELETE = function (event, context, callback) {
     var response = {},
         AWS = context.AWS,
+        paw = context.paw.model,
         cognitoIdentityId = event.requestContext.identity.cognitoIdentityId,
         cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
 
@@ -79,4 +78,4 @@ var pawsPUT = function (event, context, callback) {
     })
 }
 
-module.exports = pawsPUT;
+module.exports = pawsDELETE;
