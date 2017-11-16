@@ -10,9 +10,9 @@
             promise = deferred.promise;
 
         owner.query('accountId').eq(accountId)
-            .attributes(['beaconId'])
-            .where('beaconId')
-            .eq(beaconId)
+            .attributes(['beaconIds'])
+            .where('beaconIds')
+            .contains(beaconId)
             .exec(function (err, owners) {
                 if (err) {
                     deferred.reject(err);

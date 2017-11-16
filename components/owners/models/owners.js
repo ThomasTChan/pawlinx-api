@@ -9,8 +9,8 @@ var ownerSchema = new dynamooseSchema({
         required: true,
         hashKey: true
     },
-    beaconId: {
-        type: String,
+    beaconIds: {
+        type: [String],
         required: true
     },
     ownerId: {        

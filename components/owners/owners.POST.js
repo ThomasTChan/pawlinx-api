@@ -15,7 +15,7 @@ var ownersPOST = function (event, context, callback) {
     context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
         context.ownerUtils.getOwnerId(data.accountId).then(function (owner_uuid) {
             request.accountId = data.accountId;
-            request.beaconId = data.beaconId;
+            request.beaconIds = data.beaconIds;
             request.ownerId = owner_uuid;
             request.save(function (err) {
                 if (err) {
