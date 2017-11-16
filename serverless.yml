@@ -162,11 +162,19 @@ functions:
     handler: components/owners/metadata/metadata.api
     events:
       - http:
-          path: v1/owners/{id}/metadata
+          path: v1/owners/{ownerId}/metadata
           method: GET
           authorizer: aws_iam
       - http:
           path: v1/owners/metadata
+          method: POST
+          authorizer: aws_iam
+      - http:
+          path: v1/owners/metadata/beacon/{beaconId}
+          method: GET
+          authorizer: aws_iam
+      - http:
+          path: v1/owners/metadata/beacon
           method: POST
           authorizer: aws_iam
   graphql:
