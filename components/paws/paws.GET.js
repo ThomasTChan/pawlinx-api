@@ -37,7 +37,7 @@ var pawsGET = function (event, context, callback) {
             })
 
         } else { // Get single paw for account
-            var pawId = event.pathParameters.id;
+            var pawId = event.pathParameters.pawId;
             paw.get({
                 accountId: data.accountId,
                 pawId: pawId

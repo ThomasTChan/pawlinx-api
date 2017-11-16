@@ -20,7 +20,7 @@ service: pawlinx-api # NOTE: update this with your service name
 provider:
   name: aws
   runtime: nodejs6.10
-  stage: dev
+  stage: development
   region: ca-central-1
   environment:
     GRAPHQL_ENDPOINT: /${self:provider.stage}/graphql
@@ -113,7 +113,7 @@ functions:
           method: POST
           authorizer: aws_iam
       - http:
-          path: v1/paws/{id}
+          path: v1/paws/{pawId}
           method: PUT
           authorizer: aws_iam
       - http:
@@ -121,11 +121,11 @@ functions:
           method: GET
           authorizer: aws_iam
       - http:
-          path: v1/paws/{id}
+          path: v1/paws/{pawId}
           method: GET
           authorizer: aws_iam
       - http:
-          path: v1/paws/{id}
+          path: v1/paws/{pawId}
           method: DELETE
           authorizer: aws_iam
   paws-metadata:

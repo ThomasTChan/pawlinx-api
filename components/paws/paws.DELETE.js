@@ -11,15 +11,15 @@ var pawsDELETE = function (event, context, callback) {
     context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
         paw.queryOne('accountId').eq(data.accountId)
             .where('pawId')
-            .eq(event.pathParameters.id)
+            .eq(event.pathParameters.pawId)
             .exec(function (err, found_paw) {
                 // if err then pawId does not belong to cognito identity in context
                 if (err) {
                     response = {
                         statusCode: 500,
                         body: JSON.stringify({
-                            message: 'DELETE: ' + event.pathParameters.id + ' failed!',
-                            input: event.pathParameters.id,
+                            message: 'DELETE: ' + event.pathParameters.pawId + ' failed!',
+                            input: event.pathParameters.pawId,
                             output: err
                         })
                     }
@@ -29,9 +29,9 @@ var pawsDELETE = function (event, context, callback) {
                     response = {
                         statusCode: 404,
                         body: JSON.stringify({
-                            message: 'DELETE: ' + event.pathParameters.id + ' failed as resource does not exist!',
-                            input: event.pathParameters.id,
-                            output: event.pathParameters.id + ' does not exist for logged in account.'
+                            message: 'DELETE: ' + event.pathParameters.pawId + ' failed as resource does not exist!',
+                            input: event.pathParameters.pawId,
+                            output: event.pathParameters.pawId + ' does not exist for logged in account.'
                         })
                     }
                     callback(null, response);
@@ -41,8 +41,8 @@ var pawsDELETE = function (event, context, callback) {
                             response = {
                                 statusCode: 500,
                                 body: JSON.stringify({
-                                    message: 'DELETE: ' + event.pathParameters.id + ' failed!',
-                                    input: event.pathParameters.id,
+                                    message: 'DELETE: ' + event.pathParameters.pawId + ' failed!',
+                                    input: event.pathParameters.pawId,
                                     output: del_err
                                 })
                             }
@@ -52,8 +52,8 @@ var pawsDELETE = function (event, context, callback) {
                             response = {
                                 statusCode: 200,
                                 body: JSON.stringify({
-                                    message: 'DELETE: ' + event.pathParameters.id + ' successful!',
-                                    input: event.pathParameters.id,
+                                    message: 'DELETE: ' + event.pathParameters.pawId + ' successful!',
+                                    input: event.pathParameters.pawId,
                                     output: found_paw
                                 })
                             }
@@ -71,7 +71,7 @@ var pawsDELETE = function (event, context, callback) {
             body: JSON.stringify({
                 message: 'Cognito Identity Error: ' + error.msg,
                 errors: error.errors,
-                input: event.pathParameters.id
+                input: event.pathParameters.pawId
             })
         };
         callback(null, response);

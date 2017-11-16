@@ -10,7 +10,7 @@ var pawsPUT = function (event, context, callback) {
         cognitoIdentityPoolId = event.requestContext.identity.cognitoIdentityPoolId;
 
     // Override any request changes to pawId
-    request.pawId = event.pathParameters.id;
+    request.pawId = event.pathParameters.pawId;
 
     // Check if id belongs to cognito identity in context
     context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
@@ -19,7 +19,7 @@ var pawsPUT = function (event, context, callback) {
                 eq: data.accountId
             },
             pawId: {
-                eq: event.pathParameters.id
+                eq: event.pathParameters.pawId
             }
         }, function (err, paw) {
             // if err then pawId does not belong to cognito identity in context
