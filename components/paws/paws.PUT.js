@@ -34,7 +34,6 @@ var pawsPUT = function (event, context, callback) {
                 callback(null, response);
             } else {
                 request.accountId = data.accountId;
-                request.beaconId = data.beaconId;
                 request.save(function (err) {
                     if (err) {
                         response = {

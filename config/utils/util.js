@@ -12,7 +12,7 @@
 
         if (cognitoIdentityId === 'offlineContext_cognitoIdentityId') {
             identityRecord.accountId = cognitoIdentityId;
-            identityRecord.beaconId = [cognitoIdentityId + '_beaconId_1',cognitoIdentityId + '_beaconId_2',cognitoIdentityId + '_beaconId_3'];
+            identityRecord.beaconIds = [cognitoIdentityId + '_beaconId_1',cognitoIdentityId + '_beaconId_2',cognitoIdentityId + '_beaconId_3'];
             deferred.resolve(identityRecord);
         }
         else {
