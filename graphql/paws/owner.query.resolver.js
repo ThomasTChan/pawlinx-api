@@ -32,7 +32,7 @@ var ownerMetadataQueryByBeaconId = function (root, args, context) {
   promise = deferred.promise,
   beaconId = args.beaconId || root.beaconId;
 
-  Owners.scan('beaconId').in(beaconId)
+  Owners.scan('beaconIds').contains(beaconId)
   .attributes(['name','picture'])
   .exec(function (err, owner) {
     // if err then pawId does not belong to cognito identity in context
@@ -42,7 +42,7 @@ var ownerMetadataQueryByBeaconId = function (root, args, context) {
       // Resource does not exist!
       deferred.reject('Owner not found for beacon: ' + beaconId);
     } else {
-      deferred.resolve(owner);
+      deferred.resolve(owner[0]);
     }
   })
 

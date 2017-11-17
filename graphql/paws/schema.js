@@ -25,6 +25,7 @@ type PawMetadata {
 
 type Owner {
   ownerId: String
+  beaconIds: [String]
   name: String
   dob: String
   sex: String
@@ -35,7 +36,7 @@ type Owner {
 }
 
 type OwnerMetadata {
-  name: String,
+  name: String
   picture: String
 }
 
