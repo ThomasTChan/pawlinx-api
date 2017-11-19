@@ -40,8 +40,8 @@
                     if(typeof identityRecord.accountId === 'undefined' || identityRecord.accountId.trim() === ''){
                         errors.push('accountId missing')
                     }
-                    if(typeof identityRecord.beaconId === 'undefined' || identityRecord.beaconId.trim() === ''){
-                        errors.push('beaconId missing')
+                    if(!Array.isArray(identityRecord.beaconIds) || identityRecord.beaconIds.length === 0){
+                        errors.push('No beaconIds found')
                     }
                     if(errors.length > 0){
                         deferred.reject({
