@@ -14,33 +14,45 @@ var pawsPOST = function (event, context, callback) {
     context.util.getAWSCognitoIdentityRecord(cognitoIdentityId, cognitoIdentityPoolId).then(function (data) {
         context.ownerUtils.checkBeaconIdOwner(request.beaconId,data.accountId).then(function(beaconIds){
             context.ownerUtils.getOwnerId(data.accountId).then(function (owner_uuid) {
-                request.accountId = data.accountId;            
-                request.pawId = uuid();
-                request.ownerId = owner_uuid;
-                request.save(function (err) {
-                    if (err) {
-                        response = {
-                            statusCode: 500,
-                            body: JSON.stringify({
-                                message: 'POST failed!',
-                                input: body,
-                                output: err
-                            })
+                context.pawUtils.getPawId(data.accountId,request.beaconId).then(function(pawId){
+                    request.accountId = data.accountId;            
+                    request.pawId = pawId;
+                    request.ownerId = owner_uuid;
+                    request.save(function (err) {
+                        if (err) {
+                            response = {
+                                statusCode: 500,
+                                body: JSON.stringify({
+                                    message: 'POST failed!',
+                                    input: body,
+                                    output: err
+                                })
+                            }
+                            console.log('Save Error: ', response);
+                        } else {
+                            response = {
+                                statusCode: 200,
+                                body: JSON.stringify({
+                                    message: 'POST successful!',
+                                    input: body,
+                                    output: request
+                                })
+                            };
+                            console.log('Saved Paw!', response);
                         }
-                        console.log('Save Error: ', response);
-                    } else {
-                        response = {
-                            statusCode: 200,
-                            body: JSON.stringify({
-                                message: 'POST successful!',
-                                input: body,
-                                output: request
-                            })
-                        };
-                        console.log('Saved Paw!', response);
-                    }
+                        callback(null, response);
+                    })
+                },function(getPawIdError){
+                    response = {
+                        statusCode: 500,
+                        body: JSON.stringify({
+                            message: 'POST failed!',
+                            input: body,
+                            output: getPawIdError
+                        }),
+                    };
                     callback(null, response);
-                })
+                })                
             }, function (getOwnerError) {
                 response = {
                     statusCode: 500,
