@@ -29,6 +29,7 @@ var ownerSchema = new dynamooseSchema({
     dob: Date,
     sex: String,
     picture: String,
+    occupation: String,
     // Reference
     location: Object,
     // Reference
