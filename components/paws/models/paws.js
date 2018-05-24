@@ -66,6 +66,10 @@ var pawSchema = new dynamooseSchema({
     },
     temperature: {
         type: Number
+    },
+    lost: {
+        type: Boolean,
+        default: false
     }
 });
 
